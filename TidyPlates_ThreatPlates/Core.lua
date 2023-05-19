@@ -2,6 +2,7 @@ TidyPlatesThreat = LibStub("AceAddon-3.0"):NewAddon("TidyPlatesThreat", "AceCons
 local L = LibStub("AceLocale-3.0"):GetLocale("TidyPlatesThreat", false)
 local LDS = LibStub("LibDualSpec-1.0", true)
 local DB
+local core = KPack
 
 local PlayerClass = select(2, UnitClass("player"))
 local Active = function()
@@ -111,14 +112,14 @@ function TidyPlatesThreat:OnInitialize()
 			spec = {primary = true, secondary = false},
 			specName = {[1] = nil, [2] = nil, [3] = nil},
 			stances = {
-				ON = false,
+				ON = true,
 				[0] = false, -- No Stance
 				[1] = false, -- Battle Stance
 				[2] = true, -- Defensive Stance
 				[3] = false -- Berserker Stance
 			},
 			shapeshifts = {
-				ON = false,
+				ON = true,
 				[0] = false, -- Caster Form
 				[1] = true, -- Bear Form
 				[2] = false, -- Aquatic Form
@@ -128,14 +129,14 @@ function TidyPlatesThreat:OnInitialize()
 				[6] = false -- Flight Form (if moonkin or tree spec'd)
 			},
 			presences = {
-				ON = false,
+				ON = true,
 				[0] = false, -- No Presence
 				[1] = true, -- Blood
 				[2] = false, -- Frost
 				[3] = false -- Unholy
 			},
 			auras = {
-				ON = false,
+				ON = true,
 				[0] = false, -- No Aura
 				[1] = true, -- Devotion Aura
 				[2] = false, -- Retribution Aura
@@ -148,7 +149,7 @@ function TidyPlatesThreat:OnInitialize()
 			cache = {},
 			OldSetting = true,
 			verbose = true,
-			blizzFade = {toggle = true, amount = -0.3},
+			blizzFade = {toggle = true, amount = -0.15},
 			healthColorChange = false,
 			customColor = false,
 			allowClass = false,
@@ -158,7 +159,7 @@ function TidyPlatesThreat:OnInitialize()
 			friendlyClassIcon = false,
 			cacheClass = false,
 			castbarColor = {toggle = true, r = 1, g = 0.56, b = 0.06, a = 1},
-			castbarColorShield = {toggle = true, r = 1, g = 0, b = 0, a = 1},
+			castbarColorShield = {toggle = true, r = 35, g = 35, b = 35, a = 1},
 			aHPbarColor = {r = 0, g = 1, b = 0},
 			bHPbarColor = {r = 1, g = 0, b = 0},
 			fHPbarColor = {r = 1, g = 1, b = 1},
@@ -166,7 +167,7 @@ function TidyPlatesThreat:OnInitialize()
 			HPbarColor = {r = 1, g = 1, b = 1},
 			tHPbarColor = {r = 0, g = 0.5, b = 1},
 			totemSettings = {
-				hideHealthbar = false,
+				hideHealthbar = true,
 				-- Air Totems
 				["A1"] = {true, true, true, nil, nil, nil, "normal", color = {r = 0.67, g = 1, b = 1}},
 				["A2"] = {true, true, true, nil, nil, nil, "normal", color = {r = 0.67, g = 1, b = 1}},
@@ -657,9 +658,9 @@ function TidyPlatesThreat:OnInitialize()
 				[50] = {}
 			},
 			text = {
-				amount = true,
+				amount = false,
 				percent = true,
-				full = false,
+				full = true,
 				max = false,
 				deficit = false,
 				truncate = true
@@ -676,13 +677,13 @@ function TidyPlatesThreat:OnInitialize()
 				ON = true,
 				x = 18,
 				y = 32,
-				mode = "whitelist",
-				scale = 1,
+				mode = "blacklistMine",
+				scale = 1.5,
 				anchor = "CENTER",
 				filter = {}
 			},
 			uniqueWidget = {
-				ON = true,
+				ON = false,
 				scale = 35,
 				x = 0,
 				y = 35,
@@ -690,7 +691,7 @@ function TidyPlatesThreat:OnInitialize()
 				anchor = "CENTER"
 			},
 			classWidget = {
-				ON = true,
+				ON = false,
 				scale = 22,
 				x = -74,
 				y = -7,
@@ -698,7 +699,7 @@ function TidyPlatesThreat:OnInitialize()
 				anchor = "CENTER"
 			},
 			targetWidget = {
-				ON = true,
+				ON = false,
 				theme = "default",
 				width = 30,
 				height = 30,
@@ -727,7 +728,7 @@ function TidyPlatesThreat:OnInitialize()
 				y = -8
 			},
 			eliteWidget = {
-				ON = true,
+				ON = false,
 				theme = "default",
 				scale = 15,
 				x = 64,
@@ -756,51 +757,54 @@ function TidyPlatesThreat:OnInitialize()
 					texture = "TP_HealthBarHighlight"
 				},
 				elitehealthborder = {
-					texture = "TP_HealthBarEliteOverlay",
-					show = true
+					texture = "TP_HealthBarEliteOverlayThin",
+					show = false
 				},
 				healthborder = {
-					texture = "TP_HealthBarOverlay",
+					texture = "TP_HealthBarOverlayThin",
 					backdrop = "",
 					show = true
 				},
 				threatborder = {
-					show = true
+					show = false
 				},
 				healthbar = {
 					texture = "ThreatPlatesBar",
-					width = 120,
-					height = 10
+					width = 135,
+					height = 15,	
 				},
 				castnostop = {
 					texture = "TP_CastBarLock",
 					x = 0,
-					y = -15,
+					y = -28,
 					show = true
 				},
 				castborder = {
 					texture = "TP_CastBarOverlay",
+					backdrop = "",
 					x = 0,
-					y = -15,
+					y = -28,
 					show = true
 				},
 				castbar = {
 					texture = "ThreatPlatesBar",
+					width = 160,
+					height = 16,
 					x = 0,
-					y = -15,
+					y = -28,
 					show = true
 				},
 				name = {
-					typeface = "Accidental Presidency",
-					width = 116,
-					height = 14,
+					typeface = "Arial Narrow",
+					width = 190,
+					height = 15,
 					size = 14,
 					x = 0,
-					y = 13,
+					y = 21,
 					align = "CENTER",
 					vertical = "CENTER",
-					shadow = true,
-					flags = "NONE",
+					shadow = false,
+					flags = "OUTLINE",
 					color = {
 						r = 1,
 						g = 1,
@@ -809,20 +813,20 @@ function TidyPlatesThreat:OnInitialize()
 					show = true
 				},
 				level = {
-					typeface = "Accidental Presidency",
-					size = 12,
+					typeface = "Arial Narrow",
+					size = 14,
 					width = 20,
 					height = 14,
 					x = 50,
 					y = 0,
 					align = "RIGHT",
 					vertical = "TOP",
-					shadow = true,
-					flags = "NONE",
-					show = true
+					shadow = false,
+					flags = "OUTLINE",
+					show = false
 				},
 				eliteicon = {
-					show = true,
+					show = false,
 					theme = "default",
 					scale = 15,
 					x = 64,
@@ -831,37 +835,37 @@ function TidyPlatesThreat:OnInitialize()
 					anchor = "CENTER"
 				},
 				customtext = {
-					typeface = "Accidental Presidency",
-					size = 12,
+					typeface = "Arial Narrow",
+					size = 14,
 					width = 110,
 					height = 14,
 					x = 0,
-					y = 1,
+					y = 0,
 					align = "CENTER",
 					vertical = "CENTER",
-					shadow = true,
-					flags = "NONE",
+					shadow = false,
+					flags = "OUTLINE",
 					show = true
 				},
 				spelltext = {
-					typeface = "Accidental Presidency",
-					size = 12,
-					width = 110,
+					typeface = "Arial Narrow",
+					size = 14,
+					width = 250,
 					height = 14,
 					x = 0,
-					y = -13,
+					y = -28,
 					align = "CENTER",
 					vertical = "CENTER",
-					shadow = true,
-					flags = "NONE",
+					shadow = false,
+					flags = "OUTLINE",
 					show = true
 				},
 				raidicon = {
-					scale = 20,
-					x = 0,
-					y = 27,
-					anchor = "CENTER",
-					hpColor = true,
+					scale = 35,
+					x = -40,
+					y = 5,
+					anchor = "LEFT",
+					hpColor = false,
 					show = true,
 					hpMarked = {
 						STAR = {r = 0.85, g = 0.81, b = 0.27},
@@ -875,10 +879,10 @@ function TidyPlatesThreat:OnInitialize()
 					}
 				},
 				spellicon = {
-					scale = 20,
-					x = 75,
-					y = -7,
-					anchor = "CENTER",
+					scale = 30,
+					x = -45,
+					y = -30,
+					anchor = "LEFT",
 					show = true
 				},
 				customart = {
@@ -935,18 +939,18 @@ function TidyPlatesThreat:OnInitialize()
 				ON = true,
 				nonCombat = true,
 				hideNonCombat = false,
-				useType = true,
+				useType = false,
 				useScale = true,
-				useAlpha = true,
+				useAlpha = false,
 				useHPColor = true,
 				art = {
-					ON = true,
+					ON = false,
 					theme = "default"
 				},
 				scaleType = {
-					["Normal"] = -0.2,
+					["Normal"] = 0,
 					["Elite"] = 0,
-					["Boss"] = 0.2
+					["Boss"] = 0
 				},
 				toggle = {
 					["Boss"] = true,
@@ -956,9 +960,9 @@ function TidyPlatesThreat:OnInitialize()
 				},
 				dps = {
 					scale = {
-						LOW = 0.8,
-						MEDIUM = 0.9,
-						HIGH = 1.25
+						LOW = 1,
+						MEDIUM = 1,
+						HIGH = 1
 					},
 					alpha = {
 						LOW = 1,
@@ -968,14 +972,14 @@ function TidyPlatesThreat:OnInitialize()
 				},
 				tank = {
 					scale = {
-						LOW = 1.25,
-						MEDIUM = 0.9,
-						HIGH = 0.8
+						LOW = 1,
+						MEDIUM = 1,
+						HIGH = 1
 					},
 					alpha = {
 						LOW = 1,
-						MEDIUM = 0.85,
-						HIGH = 0.75
+						MEDIUM = 1,
+						HIGH = 1
 					}
 				},
 				marked = {
@@ -993,11 +997,11 @@ function TidyPlatesThreat:OnInitialize()
 				},
 				scale = {
 					["Totem"] = 0.75,
-					["Boss"] = 1.1,
-					["Elite"] = 1.04,
+					["Boss"] = 1,
+					["Elite"] = 1,
 					["Normal"] = 1,
-					["Target"] = 1,
-					["Neutral"] = 0.9,
+					["Target"] = 1.12,
+					["Neutral"] = 1,
 					["Marked"] = 1
 				},
 				alpha = {

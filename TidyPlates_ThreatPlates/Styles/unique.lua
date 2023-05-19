@@ -7,8 +7,10 @@ local f = CreateFrame("Frame")
 local function CreateStyle(self, event, ...)
 	if ... == "TidyPlates_ThreatPlates" then
 		local db = TidyPlatesThreat.db.profile.settings
-		local width = db.healthbar.width or 120
-		local height = db.healthbar.height or 10
+		local width = db.healthbar.width or 135
+		local height = db.healthbar.height or 15
+		local castbarwidth = db.castbar.width or 160
+		local castbarheight = db.castbar.height or 16
 
 		config.hitbox = {
 			width = width * 1.0667,
@@ -69,8 +71,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castborder = {
 			texture = path .. "TP_CastBarOverlay",
-			width = width * 2.1333,
-			height = height * 6.4,
+			width = castbarwidth * 2.1333,
+			height = castbarheight * 6.4,
 			x = db.castborder.x,
 			y = db.castborder.y,
 			anchor = "CENTER",
@@ -78,8 +80,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castnostop = {
 			texture = path .. "TP_CastBarLock",
-			width = width * 2.1333,
-			height = height * 6.4,
+			width = castbarwidth * 2.1333,
+			height = castbarheight * 6.4,
 			x = db.castnostop.x,
 			y = db.castnostop.y,
 			anchor = "CENTER",
@@ -99,8 +101,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castbar = {
 			texture = MediaFetch("statusbar", db.castbar.texture),
-			width = db.healthbar.width or 120,
-			height = 10,
+			width = db.castbar.width
+			height = db.castbar.height 
 			x = db.castbar.x,
 			y = db.castbar.y,
 			anchor = "CENTER",

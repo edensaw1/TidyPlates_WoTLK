@@ -601,7 +601,7 @@ local function GetOptions()
 								}
 							}
 						},
-						HealthBarTexture = {
+						HealthBarSettings = {
 							name = L["Healthbar"],
 							type = "group",
 							inline = false,
@@ -624,9 +624,6 @@ local function GetOptions()
 												SetThemeValue({arg = {"settings", "threatborder", "width"}}, (val * 2) + 20)
 												SetThemeValue({arg = {"settings", "highlight", "width"}}, (val * 2) + 20)
 												SetThemeValue({arg = {"settings", "healthborder", "width"}}, (val * 2) + 20)
-												SetThemeValue({arg = {"settings", "castborder", "width"}}, (val * 2) + 20)
-												SetThemeValue({arg = {"settings", "castnostop", "width"}}, (val * 2) + 20)
-												SetThemeValue({arg = {"settings", "castbar", "width"}}, val)
 												SetThemeValue(info, val)
 											end,
 											min = 80,
@@ -646,8 +643,6 @@ local function GetOptions()
 												SetThemeValue({arg = {"settings", "threatborder", "height"}}, val + 54)
 												SetThemeValue({arg = {"settings", "highlight", "height"}}, val + 54)
 												SetThemeValue({arg = {"settings", "healthborder", "height"}}, val + 54)
-												SetThemeValue({arg = {"settings", "castborder", "height"}}, val + 54)
-												SetThemeValue({arg = {"settings", "castnostop", "height"}}, val + 54)
 												SetThemeValue(info, val)
 											end,
 											min = 10,
@@ -1076,8 +1071,49 @@ local function GetOptions()
 						CastBarSettings = {
 							name = L["Castbar"],
 							type = "group",
-							order = 30,
+							inline = false,
+							order = 20,
 							args = {
+								Size = {
+									name = L["Size"],
+									type = "group",
+									inline = true,
+									order = 0,
+									args = {
+										Width = {
+											type = "range",
+											name = L["Width"],
+											order = 10,
+											get = GetValue,
+											set = function(info, val)
+												SetThemeValue({arg = {"settings", "castbar", "width"}}, val)
+												SetThemeValue({arg = {"settings", "castborder", "width"}}, (val * 2) + 20)
+												SetThemeValue(info, val)
+											end,
+											min = 80,
+											max = 240,
+											step = 0.1,
+											bigStep = 1,
+											arg = {"settings", "castbar", "width"}
+										},
+										Height = {
+											type = "range",
+											name = L["Height"],
+											order = 10,
+											get = GetValue,
+											set = function(info, val)
+												SetThemeValue({arg = {"settings", "castbar", "height"}}, val)
+												SetThemeValue({arg = {"settings", "castborder", "height"}}, val + 54)
+												SetThemeValue(info, val)
+											end,
+											min = 10,
+											max = 20,
+											step = 0.1,
+											bigStep = 1,
+											arg = {"settings", "castbar", "height"}
+										}
+									}
+								},
 								Toggles = {
 									name = L["Enable"],
 									type = "group",
