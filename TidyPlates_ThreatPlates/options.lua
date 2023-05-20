@@ -1087,6 +1087,7 @@ local function GetOptions()
 											get = GetValue,
 											set = function(info, val)
 												SetThemeValue({arg = {"settings", "castbar", "width"}}, val)
+												SetThemeValue({arg = {"settings", "frame", "width"}}, val + 4)
 												SetThemeValue({arg = {"settings", "castborder", "width"}}, (val * 2) + 20)
 												SetThemeValue(info, val)
 											end,
@@ -1103,6 +1104,7 @@ local function GetOptions()
 											get = GetValue,
 											set = function(info, val)
 												SetThemeValue({arg = {"settings", "castbar", "height"}}, val)
+												SetThemeValue({arg = {"settings", "frame", "height"}}, val + 20)
 												SetThemeValue({arg = {"settings", "castborder", "height"}}, val + 54)
 												SetThemeValue(info, val)
 											end,
